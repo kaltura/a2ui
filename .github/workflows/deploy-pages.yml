@@ -1,0 +1,60 @@
+name: Deploy Catalog to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON schemas
+        run: |
+          for f in v1/*.json v1/examples/*.json; do
+            echo "Validating $f..."
+            python3 -m json.tool "$f" > /dev/null
+          done
+          echo "All JSON files are valid."
+
+      - name: Verify catalog ID matches publish URL
+        run: |
+          CATALOG_ID=$(python3 -c "import json; print(json.load(open('v1/catalog.json'))['catalogId'])")
+          EXPECTED="https://kaltura.github.io/a2ui/v1/catalog.json"
+          if [ "$CATALOG_ID" != "$EXPECTED" ]; then
+            echo "ERROR: catalogId '$CATALOG_ID' does not match expected '$EXPECTED'"
+            exit 1
+          fi
+          echo "catalogId verified: $CATALOG_ID"
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kaltura.github.io/a2ui/v1/catalog.json",
+  "title": "Kaltura Experience Components Catalog",
+  "description": "A2UI catalog for Kaltura Experience Components — Player v7, Genie Widget, Media Manager, Analytics, and more. Extends the basic A2UI catalog with rich media components backed by the Kaltura platform.",
+  "catalogId": "https://kaltura.github.io/a2ui/v1/catalog.json",
+  "components": {
+    "KalturaPlayer": {
+      "type": "object",
+      "description": "Kaltura Player v7 — full-featured video player with DRM, multi-audio, 30+ plugins, captions, analytics tracking, ad insertion, and cue points. Renders as an iframe.",
+      "allOf": [
+        {"$ref": "common_types.json#/$defs/ComponentCommon"},
+        {"$ref": "#/$defs/CatalogComponentCommon"},
+        {
+          "type": "object",
+          "properties": {
+            "component": {"const": "KalturaPlayer"},
+            "partnerId": {
+              "type": "integer",
+              "description": "Kaltura account/partner ID."
+            },
+            "uiconfId": {
+              "type": "integer",
+              "description": "Player configuration ID (from KMC Studio or uiConf.list)."
+            },
+            "entryId": {
+              "$ref": "common_types.json#/$defs/DynamicString",
+              "description": "Media entry ID to play."
+            },
+            "ks": {
+              "$ref": "common_types.json#/$defs/DynamicString",
+              "description": "Kaltura Session token for access-controlled content. USER KS (type=0)."
+            },
+            "autoplay": {
+              "$ref": "common_types.json#/$defs/DynamicBoolean",
+              "description": "Auto-start playback. Requires muted=true per browser policy. Default: false.",
+              "default": false
+            },
+            "muted": {
+              "$ref": "common_types.json#/$defs/DynamicBoolean",
+              "description": "Start muted. Must be true when autoplay is true. Default: false.",
+              "default": false
+            },
+            "startTime": {
+              "$ref": "common_types.json#/$defs/DynamicNumber",
+              "description": "Seek to this position (seconds) on load."
+            },
+            "clipTo": {
+              "$ref": "common_types.json#/$defs/DynamicNumber",
+              "description": "Stop playback at this position (seconds)."
+            },
+            "aspectRatio": {
+              "$ref": "common_types.json#/$defs/DynamicString",
+              "description": "Container aspect ratio (e.g. '16/9', '4/3'). Default: '16/9'.",
+              "default": "16/9"
+            }
+          },
+          "required": ["component", "partnerId", "uiconfId", "entryId"]
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "$defs": {
+    "CatalogComponentCommon": {
+      "type": "object",
+      "properties": {
+        "tooltip": {
+          "$ref": "common_types.json#/$defs/DynamicString",
+          "description": "Tooltip text shown on hover."
+        },
+        "visible": {
+          "$ref": "common_types.json#/$defs/DynamicBoolean",
+          "description": "Controls component visibility.",
+          "default": true
+        }
+      }
+    },
+    "anyComponent": {
+      "oneOf": [
+        {"$ref": "#/components/KalturaPlayer"}
+      ]
+    },
+    "theme": {
+      "type": "object",
+      "description": "Theme parameters for Kaltura surfaces.",
+      "properties": {
+        "primaryColor": {
+          "type": "string",
+          "description": "Primary brand color (hex). Default: Kaltura Stream Blue #006efa."
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["light", "dark"],
+          "description": "Light or dark theme mode.",
+          "default": "light"
+        }
+      },
+      "additionalProperties": false
+    },
+    "anyFunction": {
+      "not": {},
+      "description": "Kaltura catalog does not define client-side functions."
+    }
+  }
+}
