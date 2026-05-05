@@ -1,0 +1,71 @@
+[
+  {
+    "version": "v0.9",
+    "createSurface": {
+      "surfaceId": "flashcards-example001",
+      "catalogId": "https://kaltura.github.io/a2ui/v1/catalog.json",
+      "theme": {
+        "primaryColor": "#006EFA",
+        "mode": "dark"
+      }
+    }
+  },
+  {
+    "version": "v0.9",
+    "updateComponents": {
+      "surfaceId": "flashcards-example001",
+      "components": [
+        {
+          "id": "root",
+          "component": "Column",
+          "children": ["flashcards"]
+        },
+        {
+          "id": "flashcards",
+          "component": "KalturaFlashcards",
+          "title": "Key Concepts: Machine Learning Pipelines",
+          "summary": "An overview of the core ML pipeline stages covered in this training.",
+          "cards": [
+            {
+              "title": "Data Preprocessing",
+              "subtitle": "Key takeaway 1",
+              "content": "Machine learning pipelines **automate** the workflow from raw data to deployed model. The preprocessing stage handles cleaning, normalization, and feature extraction.",
+              "clips": [
+                {
+                  "entryId": "1_abc12345",
+                  "startTime": 45,
+                  "endTime": 120,
+                  "title": "Data cleaning walkthrough",
+                  "thumbnail": "https://cfvod.kaltura.com/p/12345/thumbnail/entry_id/1_abc12345/width/320/height/180"
+                }
+              ]
+            },
+            {
+              "title": "Feature Engineering",
+              "subtitle": "Key takeaway 2",
+              "content": "Feature selection and transformation determine model quality more than algorithm choice. Domain expertise is critical for identifying meaningful features."
+            },
+            {
+              "title": "Model Training",
+              "subtitle": "Key takeaway 3",
+              "content": "Training involves iterating on hyperparameters, cross-validation, and careful monitoring for overfitting. Use early stopping to prevent wasted compute.",
+              "clips": [
+                {
+                  "entryId": "1_def67890",
+                  "startTime": 300,
+                  "endTime": 480,
+                  "title": "Training loop explained"
+                }
+              ]
+            },
+            {
+              "title": "Deployment & Monitoring",
+              "subtitle": "Key takeaway 4",
+              "content": "A deployed model requires continuous monitoring for data drift, performance degradation, and concept drift. Automated retraining pipelines are essential for production ML."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
