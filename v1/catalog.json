@@ -186,6 +186,82 @@
         }
       ],
       "unevaluatedProperties": false
+    },
+    "KalturaChart": {
+      "type": "object",
+      "description": "Interactive data chart rendered via visx. Supports line, bar, area, pie, scatter, geo, wordcloud, treemap, heatmap, radar, sankey, and funnel chart types.",
+      "allOf": [
+        { "$ref": "#/$defs/ComponentCommon" },
+        { "$ref": "#/$defs/CatalogComponentCommon" },
+        {
+          "type": "object",
+          "properties": {
+            "component": { "const": "KalturaChart" },
+            "chartType": {
+              "type": "string",
+              "enum": ["line", "bar", "area", "pie", "scatter", "geo", "wordcloud", "treemap", "heatmap", "radar", "sankey", "funnel"],
+              "description": "Visualization type."
+            },
+            "data": {
+              "type": "array",
+              "description": "Array of data point objects. Keys become axis labels and series names.",
+              "items": { "type": "object" }
+            },
+            "title": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Chart title displayed above the visualization."
+            },
+            "xKey": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Data field to use as the x-axis / category key. Auto-detected if omitted."
+            },
+            "yKeys": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Data fields to plot as y-axis series. Auto-detected if omitted."
+            },
+            "yLabels": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Human-readable labels for each yKey series (legend labels)."
+            },
+            "xLabel": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "X-axis label."
+            },
+            "yLabel": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Y-axis label."
+            },
+            "colors": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Override series colors (CSS color strings, cycled)."
+            },
+            "height": {
+              "$ref": "#/$defs/DynamicNumber",
+              "description": "Chart height in pixels. Default: 300.",
+              "default": 300
+            },
+            "annotations": {
+              "type": "array",
+              "description": "Vertical annotation lines on cartesian charts.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "x": { "type": "string", "description": "x-axis value where the annotation line is drawn." },
+                  "label": { "type": "string", "description": "Label text shown on the annotation." },
+                  "color": { "type": "string", "description": "Line color (CSS color string). Default: accent color." }
+                },
+                "required": ["x", "label"],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": ["component", "chartType", "data"]
+        }
+      ],
+      "unevaluatedProperties": false
     }
   },
   "$defs": {
@@ -273,7 +349,8 @@
       "oneOf": [
         { "$ref": "#/components/KalturaPlayer" },
         { "$ref": "#/components/KalturaFlashcards" },
-        { "$ref": "#/components/KalturaMediaManager" }
+        { "$ref": "#/components/KalturaMediaManager" },
+        { "$ref": "#/components/KalturaChart" }
       ]
     },
     "theme": {
