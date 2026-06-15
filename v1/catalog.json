@@ -262,6 +262,300 @@
         }
       ],
       "unevaluatedProperties": false
+    },
+    "KalturaAnalytics": {
+      "type": "object",
+      "description": "Kaltura Analytics — KMC analytics dashboard for entry or account-level metrics. Renders as an iframe.",
+      "allOf": [
+        { "$ref": "#/$defs/ComponentCommon" },
+        { "$ref": "#/$defs/CatalogComponentCommon" },
+        {
+          "type": "object",
+          "properties": {
+            "component": { "const": "KalturaAnalytics" },
+            "partnerId": {
+              "type": "integer",
+              "description": "Kaltura account/partner ID."
+            },
+            "ks": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Session token. ADMIN KS (type=2) required for analytics access."
+            },
+            "entryId": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Media entry ID for entry-level analytics. Omit for account-level reporting."
+            },
+            "reportType": {
+              "type": "string",
+              "description": "Analytics report type ID (e.g. '1' for top content). Omit to use the default dashboard."
+            },
+            "fromDate": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Report start date in ISO 8601 format (e.g. '2024-01-01')."
+            },
+            "toDate": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Report end date in ISO 8601 format (e.g. '2024-12-31')."
+            }
+          },
+          "required": ["component", "partnerId", "ks"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "KalturaCaptionsEditor": {
+      "type": "object",
+      "description": "Kaltura Captions Editor — inline subtitle editing interface for correcting and timing captions. Renders as an iframe.",
+      "allOf": [
+        { "$ref": "#/$defs/ComponentCommon" },
+        { "$ref": "#/$defs/CatalogComponentCommon" },
+        {
+          "type": "object",
+          "properties": {
+            "component": { "const": "KalturaCaptionsEditor" },
+            "partnerId": {
+              "type": "integer",
+              "description": "Kaltura account/partner ID."
+            },
+            "ks": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Session token. USER KS (type=0) with sview privilege for the entry."
+            },
+            "entryId": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Media entry ID whose captions will be edited."
+            },
+            "uiconfId": {
+              "type": "integer",
+              "description": "Player uiConf ID used by the captions editor preview. Auto-discovered from account defaults if omitted."
+            }
+          },
+          "required": ["component", "partnerId", "ks", "entryId"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "KalturaRecorder": {
+      "type": "object",
+      "description": "Kaltura Express Recorder — browser-based screen/webcam capture widget injected via JavaScript. Requires USER KS with recording privileges.",
+      "allOf": [
+        { "$ref": "#/$defs/ComponentCommon" },
+        { "$ref": "#/$defs/CatalogComponentCommon" },
+        {
+          "type": "object",
+          "properties": {
+            "component": { "const": "KalturaRecorder" },
+            "partnerId": {
+              "type": "integer",
+              "description": "Kaltura account/partner ID."
+            },
+            "ks": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Session token. USER KS (type=0) with recording privileges."
+            },
+            "uiconfId": {
+              "type": "integer",
+              "description": "Recorder uiConf ID. Auto-discovered from account defaults if omitted."
+            },
+            "category": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Category name or ID to save the recorded entry into."
+            },
+            "entryName": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Default name for the newly recorded entry."
+            },
+            "allowScreen": {
+              "$ref": "#/$defs/DynamicBoolean",
+              "description": "Allow screen capture mode. Default: true.",
+              "default": true
+            },
+            "allowCamera": {
+              "$ref": "#/$defs/DynamicBoolean",
+              "description": "Allow webcam/camera capture mode. Default: true.",
+              "default": true
+            }
+          },
+          "required": ["component", "partnerId", "ks"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "KalturaAvatar": {
+      "type": "object",
+      "description": "Kaltura AI Avatar — conversational avatar widget powered by avatar.us.kaltura.ai. Injects via JavaScript SDK. No Kaltura KS required; uses external avatar auth.",
+      "allOf": [
+        { "$ref": "#/$defs/ComponentCommon" },
+        { "$ref": "#/$defs/CatalogComponentCommon" },
+        {
+          "type": "object",
+          "properties": {
+            "component": { "const": "KalturaAvatar" },
+            "avatarId": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Unique avatar configuration ID from the Kaltura Avatar service."
+            },
+            "projectId": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Avatar project ID for multi-project accounts."
+            },
+            "language": {
+              "type": "string",
+              "description": "BCP 47 language code for the avatar interaction. Default: 'en'.",
+              "default": "en"
+            },
+            "autoStart": {
+              "$ref": "#/$defs/DynamicBoolean",
+              "description": "Automatically start the avatar session on load. Default: false.",
+              "default": false
+            },
+            "allowInterrupt": {
+              "$ref": "#/$defs/DynamicBoolean",
+              "description": "Allow the user to interrupt the avatar while it is speaking. Default: true.",
+              "default": true
+            }
+          },
+          "required": ["component", "avatarId"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "KalturaGenie": {
+      "type": "object",
+      "description": "Kaltura Genie — AI-powered video discovery and Q&A widget. Delivers conversational search and smart video recommendations via Unisphere.",
+      "allOf": [
+        { "$ref": "#/$defs/ComponentCommon" },
+        { "$ref": "#/$defs/CatalogComponentCommon" },
+        {
+          "type": "object",
+          "properties": {
+            "component": { "const": "KalturaGenie" },
+            "partnerId": {
+              "type": "integer",
+              "description": "Kaltura account/partner ID."
+            },
+            "ks": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Session token. USER KS (type=0) scoped to the discoverable content."
+            },
+            "serverUrl": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Unisphere CDN base URL (e.g. 'https://cdnapisec.kaltura.com')."
+            },
+            "categoryId": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Category ID to scope discovery. Omit for account-wide search."
+            },
+            "language": {
+              "type": "string",
+              "description": "BCP 47 language code for the Genie interface. Default: 'en'.",
+              "default": "en"
+            }
+          },
+          "required": ["component", "partnerId", "ks", "serverUrl"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "KalturaContentLab": {
+      "type": "object",
+      "description": "Kaltura Content Lab — AI-powered content creation and enrichment studio. Generates clips, chapters, captions, and quizzes from existing media. Requires ADMIN KS. Renders via Unisphere.",
+      "allOf": [
+        { "$ref": "#/$defs/ComponentCommon" },
+        { "$ref": "#/$defs/CatalogComponentCommon" },
+        {
+          "type": "object",
+          "properties": {
+            "component": { "const": "KalturaContentLab" },
+            "partnerId": {
+              "type": "integer",
+              "description": "Kaltura account/partner ID."
+            },
+            "ks": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Session token. ADMIN KS (type=2) required for enrichment operations."
+            },
+            "serverUrl": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Unisphere CDN base URL (e.g. 'https://cdnapisec.kaltura.com')."
+            },
+            "entryId": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Media entry ID to pre-select in the Content Lab. Omit to open the full library view."
+            }
+          },
+          "required": ["component", "partnerId", "ks", "serverUrl"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "KalturaAgentsWidget": {
+      "type": "object",
+      "description": "Kaltura AI Agents Widget — operator dashboard for configuring and managing AI agents attached to media workflows. Requires ADMIN KS. Renders via Unisphere.",
+      "allOf": [
+        { "$ref": "#/$defs/ComponentCommon" },
+        { "$ref": "#/$defs/CatalogComponentCommon" },
+        {
+          "type": "object",
+          "properties": {
+            "component": { "const": "KalturaAgentsWidget" },
+            "partnerId": {
+              "type": "integer",
+              "description": "Kaltura account/partner ID."
+            },
+            "ks": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Session token. ADMIN KS (type=2) required for agent management."
+            },
+            "serverUrl": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Unisphere CDN base URL (e.g. 'https://cdnapisec.kaltura.com')."
+            },
+            "agentId": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Agent configuration ID to pre-select in the dashboard. Omit to open the full agent list."
+            }
+          },
+          "required": ["component", "partnerId", "ks", "serverUrl"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "KalturaVodAvatar": {
+      "type": "object",
+      "description": "Kaltura VOD Avatar — renders a pre-recorded AI avatar presentation for a video entry. The avatar reads scripted content synchronized with media. Renders via Unisphere.",
+      "allOf": [
+        { "$ref": "#/$defs/ComponentCommon" },
+        { "$ref": "#/$defs/CatalogComponentCommon" },
+        {
+          "type": "object",
+          "properties": {
+            "component": { "const": "KalturaVodAvatar" },
+            "partnerId": {
+              "type": "integer",
+              "description": "Kaltura account/partner ID."
+            },
+            "ks": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Session token. USER KS (type=0) with playback access to the entry."
+            },
+            "serverUrl": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Kaltura Unisphere CDN base URL (e.g. 'https://cdnapisec.kaltura.com')."
+            },
+            "entryId": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Media entry ID whose content the avatar presents synchronized."
+            },
+            "avatarStyle": {
+              "type": "string",
+              "description": "Visual style preset for the avatar (e.g. 'professional', 'casual'). Uses account default if omitted."
+            }
+          },
+          "required": ["component", "partnerId", "ks", "serverUrl", "entryId"]
+        }
+      ],
+      "unevaluatedProperties": false
     }
   },
   "$defs": {
@@ -350,7 +644,15 @@
         { "$ref": "#/components/KalturaPlayer" },
         { "$ref": "#/components/KalturaFlashcards" },
         { "$ref": "#/components/KalturaMediaManager" },
-        { "$ref": "#/components/KalturaChart" }
+        { "$ref": "#/components/KalturaChart" },
+        { "$ref": "#/components/KalturaAnalytics" },
+        { "$ref": "#/components/KalturaCaptionsEditor" },
+        { "$ref": "#/components/KalturaRecorder" },
+        { "$ref": "#/components/KalturaAvatar" },
+        { "$ref": "#/components/KalturaGenie" },
+        { "$ref": "#/components/KalturaContentLab" },
+        { "$ref": "#/components/KalturaAgentsWidget" },
+        { "$ref": "#/components/KalturaVodAvatar" }
       ]
     },
     "theme": {
