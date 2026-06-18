@@ -131,6 +131,18 @@
                 "required": ["title", "content"],
                 "additionalProperties": false
               }
+            },
+            "partnerId": {
+              "type": "integer",
+              "description": "Kaltura account/partner ID. Injected by the renderer."
+            },
+            "uiconfId": {
+              "type": "integer",
+              "description": "Player uiConf ID for flashcard clip playback. Auto-discovered if omitted; injected by the renderer."
+            },
+            "ks": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "USER KS (type=0) for clip playback, scoped by the renderer."
             }
           },
           "required": ["component", "title", "cards"]
@@ -154,11 +166,11 @@
             },
             "ks": {
               "$ref": "#/$defs/DynamicString",
-              "description": "Kaltura Session token. ADMIN KS (type=2) for manage mode, USER KS (type=0) for select mode."
+              "description": "USER KS (type=0). Scoped by the renderer for the session user."
             },
             "serverUrl": {
               "$ref": "#/$defs/DynamicString",
-              "description": "Kaltura Unisphere CDN URL (e.g. 'https://cdnapisec.kaltura.com')."
+              "description": "Kaltura Unisphere CDN base URL for this partner's region (e.g. 'https://unisphere.nvp1.ovp.kaltura.com/v1')."
             },
             "theme": {
               "type": "string",
@@ -440,7 +452,7 @@
             },
             "serverUrl": {
               "$ref": "#/$defs/DynamicString",
-              "description": "Kaltura Unisphere CDN base URL (e.g. 'https://cdnapisec.kaltura.com')."
+              "description": "Kaltura Unisphere CDN base URL for this partner's region (e.g. 'https://unisphere.nvp1.ovp.kaltura.com/v1')."
             },
             "categoryId": {
               "$ref": "#/$defs/DynamicString",
@@ -477,7 +489,7 @@
             },
             "serverUrl": {
               "$ref": "#/$defs/DynamicString",
-              "description": "Kaltura Unisphere CDN base URL (e.g. 'https://cdnapisec.kaltura.com')."
+              "description": "Kaltura Unisphere CDN base URL for this partner's region (e.g. 'https://unisphere.nvp1.ovp.kaltura.com/v1')."
             },
             "entryId": {
               "$ref": "#/$defs/DynamicString",
@@ -509,7 +521,7 @@
             },
             "serverUrl": {
               "$ref": "#/$defs/DynamicString",
-              "description": "Kaltura Unisphere CDN base URL (e.g. 'https://cdnapisec.kaltura.com')."
+              "description": "Kaltura Unisphere CDN base URL for this partner's region (e.g. 'https://unisphere.nvp1.ovp.kaltura.com/v1')."
             },
             "agentId": {
               "$ref": "#/$defs/DynamicString",
@@ -541,7 +553,7 @@
             },
             "serverUrl": {
               "$ref": "#/$defs/DynamicString",
-              "description": "Kaltura Unisphere CDN base URL (e.g. 'https://cdnapisec.kaltura.com')."
+              "description": "Kaltura Unisphere CDN base URL for this partner's region (e.g. 'https://unisphere.nvp1.ovp.kaltura.com/v1')."
             },
             "entryId": {
               "$ref": "#/$defs/DynamicString",
