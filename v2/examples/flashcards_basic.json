@@ -1,0 +1,46 @@
+[
+  {
+    "version": "v0.9",
+    "createSurface": {
+      "surfaceId": "flashcards-demo",
+      "catalogId": "https://kaltura.github.io/a2ui/v2/catalog.json"
+    }
+  },
+  {
+    "version": "v0.9",
+    "updateDataModel": {
+      "surfaceId": "flashcards-demo",
+      "path": "/",
+      "value": {
+        "deck": {
+          "title": "Biology"
+        }
+      }
+    }
+  },
+  {
+    "version": "v0.9",
+    "updateComponents": {
+      "surfaceId": "flashcards-demo",
+      "components": [
+        {
+          "id": "root",
+          "component": "KalturaFlashcards",
+          "title": {
+            "path": "/deck/title"
+          },
+          "cards": [
+            {
+              "title": "Cell",
+              "content": "The basic unit of life."
+            },
+            {
+              "title": "Nucleus",
+              "content": "Holds the DNA of the cell."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

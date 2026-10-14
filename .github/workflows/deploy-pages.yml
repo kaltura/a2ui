@@ -22,21 +22,23 @@ jobs:
 
       - name: Validate JSON schemas
         run: |
-          for f in v1/*.json v1/examples/*.json; do
+          for f in v1/*.json v1/examples/*.json v2/*.json v2/examples/*.json; do
             echo "Validating $f..."
             python3 -m json.tool "$f" > /dev/null
           done
           echo "All JSON files are valid."
 
-      - name: Verify catalog ID matches publish URL
+      - name: Verify catalog IDs match publish URLs
         run: |
-          CATALOG_ID=$(python3 -c "import json; print(json.load(open('v1/catalog.json'))['catalogId'])")
-          EXPECTED="https://kaltura.github.io/a2ui/v1/catalog.json"
-          if [ "$CATALOG_ID" != "$EXPECTED" ]; then
-            echo "ERROR: catalogId '$CATALOG_ID' does not match expected '$EXPECTED'"
-            exit 1
-          fi
-          echo "catalogId verified: $CATALOG_ID"
+          for v in v1 v2; do
+            ID=$(python3 -c "import json; print(json.load(open('$v/catalog.json'))['catalogId'])")
+            EXPECTED="https://kaltura.github.io/a2ui/$v/catalog.json"
+            if [ "$ID" != "$EXPECTED" ]; then
+              echo "ERROR: $v catalogId '$ID' does not match expected '$EXPECTED'"
+              exit 1
+            fi
+            echo "catalogId verified: $ID"
+          done
 
   deploy:
     needs: validate

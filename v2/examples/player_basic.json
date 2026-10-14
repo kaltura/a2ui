@@ -1,0 +1,24 @@
+[
+  {
+    "version": "v0.9",
+    "createSurface": {
+      "surfaceId": "player-demo",
+      "catalogId": "https://kaltura.github.io/a2ui/v2/catalog.json"
+    }
+  },
+  {
+    "version": "v0.9",
+    "updateComponents": {
+      "surfaceId": "player-demo",
+      "components": [
+        {
+          "id": "root",
+          "component": "KalturaPlayer",
+          "partnerId": 12345,
+          "uiconfId": 54818582,
+          "entryId": "1_abc12345"
+        }
+      ]
+    }
+  }
+]
