@@ -64,4 +64,4 @@ The source of truth for `v2` is the [kaltura-a2ui-components](https://github.com
 
 ## License
 
-Copyright 2026 Kaltura Inc. All rights reserved.
+Apache-2.0. See [LICENSE](LICENSE).
