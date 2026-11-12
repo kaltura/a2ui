@@ -48,3 +48,4 @@ Set `GOOGLE_API_KEY` first. Any model id that ADK supports works. The real-model
 
 - Model output is untrusted. `handle_request` always validates it with the SDK and raises `A2uiError` if it fails. Never send unvalidated output to a client.
 - Never put a Kaltura Session (KS) in a message. The host adds it.
+- The prompt tells the model not to invent Kaltura IDs. Without that line, a real model made up a `partnerId` and a `uiconfId`.
