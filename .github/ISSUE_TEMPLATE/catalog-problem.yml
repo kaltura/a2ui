@@ -1,0 +1,17 @@
+name: Catalog problem
+description: A component, prop or example in the catalog is wrong or unclear.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Catalog folder and release
+      placeholder: v3, kaltura-a2ui-components 0.7.0
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong
+      description: Name the component and prop. Paste the message that fails.
+    validations:
+      required: true
