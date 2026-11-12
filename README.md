@@ -48,6 +48,8 @@ v3/
 
 `catalog.json` has an `instructions` field written for the model. Pass it into your prompt.
 
+A runnable example on Google ADK is in [samples/adk-agent](samples/adk-agent/README.md). It runs offline with a fake model. `scripts/sdk-check.py` checks the catalog and examples with the official A2UI Python SDK in CI.
+
 ## Checks
 
 `npm run validate` runs on every pull request and before every deploy:
