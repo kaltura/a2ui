@@ -11,9 +11,10 @@ A small [Google ADK](https://github.com/google/adk-python) agent that answers wi
 | Replies in plain text when the client does not list the v3 catalog id | `agent.py`, `handle_request` |
 | Lists the catalog id in the A2A AgentCard (A2UI extension, `supportedCatalogIds`) | `agent.py`, `agent_card` |
 | Direct JSON output: the model writes `<a2ui-json>` blocks and the SDK validates them | `agent.py`, `processor.parse_response` |
+| A2A server: AgentCard at `/.well-known/agent-card.json`, `message/send` on `/` | `server.py` |
 | Fake ADK model that returns a v3 example | `fake_llm.py` |
 
-The sample builds the AgentCard but does not start an A2A server.
+`server.py` serves the agent over A2A (`python main.py --serve`). The client sends its catalogs in message metadata under `a2uiRendererCapabilities`, and each A2UI message comes back as its own data part.
 
 ## Run it
 
@@ -29,6 +30,7 @@ Valid A2UI messages print to stdout, one JSON object per line. The card and the 
 
 ```sh
 .venv/bin/python main.py --plain   # client without the v3 id: plain text, no messages
+.venv/bin/python main.py --serve   # A2A server on http://127.0.0.1:8080
 .venv/bin/python -I test_agent.py  # tests, plain asserts (pytest also works)
 ```
 

@@ -2,6 +2,7 @@
 
 python main.py           the client lists the v3 catalog
 python main.py --plain   the client does not, so the agent answers in plain text
+python main.py --serve   serve the agent over A2A on http://127.0.0.1:8080
 """
 import asyncio
 import json
@@ -30,4 +31,10 @@ async def main() -> None:
         print(json.dumps(message))
 
 
-asyncio.run(main())
+if "--serve" in sys.argv:
+    import uvicorn
+    from server import build_app
+
+    uvicorn.run(build_app(MODEL), host="127.0.0.1", port=8080)
+else:
+    asyncio.run(main())
