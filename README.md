@@ -1,22 +1,21 @@
 # Kaltura A2UI Catalog
 
-[A2UI](https://a2ui.org) component catalog for [Kaltura Experience Components](https://corp.kaltura.com/).
+[A2UI](https://a2ui.org) component catalog for [Kaltura Experience Components](https://corp.kaltura.com/): a Player, flashcards, charts, a media manager and more, as widgets an agent can place in a reply.
 
-Published at: **https://kaltura.github.io/a2ui/v2/catalog.json** (current). `v1` stays online for agents that still use it.
+**Current catalog: https://kaltura.github.io/a2ui/v3/catalog.json** (A2UI 1.0). The renderers live in [kaltura-a2ui-components](https://github.com/kaltura/kaltura-a2ui-components). Live demo: https://kaltura.github.io/kaltura-a2ui-components/.
 
-The renderers for this catalog live in [kaltura-a2ui-components](https://github.com/kaltura/kaltura-a2ui-components). `v2` is a copy of the `kaltura_catalog.json` asset of one of its releases.
+| Folder | Catalog id | A2UI protocol | Renderer release |
+|---|---|---|---|
+| `v3/` | `https://kaltura.github.io/a2ui/v3/catalog.json` | 1.0 | [kaltura-a2ui-components 0.7.x](https://github.com/kaltura/kaltura-a2ui-components/releases/tag/v0.7.0) on `@a2ui/react` and `@a2ui/web_core` 0.15 |
+| `v2/`, `v1/` | Same pattern | 0.9 and older | Stay online unchanged. Do not use them for new agents |
 
-## What This Is
-
-This catalog defines Kaltura's custom A2UI components — rich media widgets that AI agents can embed inline in their responses. Clients that support the A2UI protocol use this catalog to render Kaltura Experience Components natively.
-
-### Available Components (v2)
+## Components (v3)
 
 The 18 basic A2UI components, plus:
 
 | Component | Description |
 |-----------|-------------|
-| **KalturaPlayer** | Plays one entry, with an optional start time and clip end |
+| **KalturaPlayer** | Plays one entry or a playlist, with an optional start time and clip end |
 | **KalturaFlashcards** | Flashcard deck with optional video clips |
 | **KalturaChart** | Bar, line, area, pie and other charts from literal data |
 | KalturaMediaManager | Browse and pick entries |
@@ -29,38 +28,46 @@ The 18 basic A2UI components, plus:
 | KalturaAgentsWidget | Agent management |
 | KalturaVodAvatar | Video-on-demand avatar |
 
-Props never carry a Kaltura Session (KS). The host app supplies it in code. See each component's props in [docs/components.md](https://github.com/kaltura/kaltura-a2ui-components/blob/main/docs/components.md).
+Props never carry a Kaltura Session (KS). The host app supplies it in code. Props are listed in [docs/components.md](https://github.com/kaltura/kaltura-a2ui-components/blob/main/docs/components.md).
 
-### Files
+## Files
 
 ```
-v2/
-├── catalog.json          # Current catalog (JSON Schema), 18 basic + 12 Kaltura components
-└── examples/             # Player, clip, flashcards and chart messages
-v1/                       # Legacy. Kaltura components only, with a `ks` prop
-├── catalog.json
-├── common_types.json
-└── examples/
+v3/
+├── catalog.json          # Catalog (JSON Schema 2020-12), 18 basic + 12 Kaltura components
+├── common_types.json     # Shared A2UI types, byte copy from @a2ui/web_core 0.15
+└── examples/             # 12 message lists: {name, description, messages}
 ```
 
-## How It Works
+## Use it in an agent
 
-1. The [Kaltura Agent](https://github.com/kaltura/kaltura-gemini-agent) advertises this catalog in its AgentCard
-2. Clients request catalog negotiation during session setup
-3. The agent emits declarative A2UI JSON referencing this catalog's components
-4. Clients render the components using their registered implementations
+1. Advertise the catalog id in the AgentCard.
+2. Read `a2uiRendererCapabilities` from the client and answer in plain text when the id is missing.
+3. Send A2UI 1.0 messages whose `createSurface.catalogId` is the catalog id.
+4. Treat what the model returns as untrusted. Validate it against `catalog.json` before you send it.
 
-See the [A2UI specification](https://a2ui.org) for protocol details.
+`catalog.json` has an `instructions` field written for the model. Pass it into your prompt.
 
-## Publishing
+## Checks
 
-This catalog is automatically published to GitHub Pages when:
-- Changes are pushed to `main` in this repository
-- The Kaltura Agent's CI pipeline syncs catalog updates from the source of truth
+`npm run validate` runs on every pull request and before every deploy:
 
-The source of truth for `v2` is the [kaltura-a2ui-components](https://github.com/kaltura/kaltura-a2ui-components) release asset `kaltura_catalog.json`. After each release, copy it to `v2/catalog.json`.
+- v3 passes the A2UI 1.0 catalog meta-schema (`catalog_definition.json`).
+- `common_types.json` is the file from `@a2ui/web_core`.
+- Every example is a valid list of agent-to-renderer messages for this catalog.
+- Every `catalogId` equals its publish URL.
 
-`v1` is synced from the [kaltura-gemini-agent](https://github.com/kaltura/kaltura-gemini-agent) repository (`src/kaltura_agent/ui/catalogs/`). Changes flow: agent repo -> this repo -> GitHub Pages.
+## Update the catalog
+
+`v3/catalog.json` is the `kaltura_catalog.json` asset of a kaltura-a2ui-components release. Never edit it by hand.
+
+```bash
+gh release download vX.Y.Z --repo kaltura/kaltura-a2ui-components --pattern kaltura_catalog.json --pattern common_types.json --dir /tmp/asset
+cp /tmp/asset/kaltura_catalog.json v3/catalog.json && cp /tmp/asset/common_types.json v3/common_types.json
+npm run validate
+```
+
+Open a pull request. After the merge, `deploy-pages.yml` publishes to GitHub Pages. Check the served bytes with `curl -fsSL https://kaltura.github.io/a2ui/v3/catalog.json | cmp - /tmp/asset/kaltura_catalog.json`.
 
 ## License
 

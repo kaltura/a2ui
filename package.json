@@ -1,0 +1,12 @@
+{
+  "name": "kaltura-a2ui-catalog",
+  "private": true,
+  "description": "Checks for the published Kaltura A2UI catalog.",
+  "scripts": {
+    "validate": "node scripts/validate.mjs"
+  },
+  "dependencies": {
+    "@a2ui/web_core": "0.15.0",
+    "ajv": "8.17.1"
+  }
+}
