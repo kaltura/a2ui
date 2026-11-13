@@ -22,7 +22,11 @@ CATALOG_ID = "https://kaltura.github.io/a2ui/v3/catalog.json"
 # One folder per catalog id. Each holds catalog.json and examples/*.json.
 CATALOG_FOLDERS = {CATALOG_ID: REPO_ROOT / "v3"}
 
-INSTRUCTION = "You help people find and work with media in their Kaltura library."
+INSTRUCTION = (
+    "You help people find and work with media in their Kaltura library. "
+    "Never invent Kaltura IDs. Use a partnerId, uiconfId or entryId only if the user gave it. "
+    "If a component needs an ID you do not have, ask for it in plain text and show no component."
+)
 PLAIN_INSTRUCTION = f"{INSTRUCTION} Answer in plain text only."
 APP_NAME = "kaltura-a2ui-sample"
 USER_ID = "sample-user"
