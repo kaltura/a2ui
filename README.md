@@ -6,8 +6,8 @@
 
 | Folder | Catalog id | A2UI protocol | Renderer release |
 |---|---|---|---|
-| `v3/` | `https://kaltura.github.io/a2ui/v3/catalog.json` | 1.0 | [kaltura-a2ui-components 0.7.x](https://github.com/kaltura/kaltura-a2ui-components/releases/tag/v0.7.0) on `@a2ui/react` and `@a2ui/web_core` 0.15 |
-| `v2/`, `v1/` | Same pattern | 0.9 and older | Stay online unchanged. Do not use them for new agents |
+| `v3/` | `https://kaltura.github.io/a2ui/v3/catalog.json` | 1.0 | [kaltura-a2ui-components 0.7.x and 0.8.x](https://github.com/kaltura/kaltura-a2ui-components/releases/tag/v0.8.0) on `@a2ui/react` and `@a2ui/web_core` 0.15 |
+| `v2/`, `v1/` | Same pattern | 0.9 and older | **Deprecated.** Online and unchanged. No fixes. Do not use them |
 
 ## Components (v3)
 
