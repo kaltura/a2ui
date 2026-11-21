@@ -1,7 +1,7 @@
 google-adk==2.14.1
-a2ui-agent-sdk==0.11.0
-a2ui-core==0.6.0
-a2ui-a2a==0.3.0
+a2ui-agent-sdk==0.12.0
+a2ui-core==0.7.0
+a2ui-a2a==0.4.0
 a2a-sdk[http-server]==0.3.26
 uvicorn==0.54.0
 httpx==0.28.1
