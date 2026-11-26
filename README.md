@@ -2,14 +2,17 @@
 
 [A2UI](https://a2ui.org) component catalog for [Kaltura Experience Components](https://corp.kaltura.com/): a Player, flashcards, charts, a media manager and more, as widgets an agent can place in a reply.
 
-**Current catalog: https://kaltura.github.io/a2ui/v3/catalog.json** (A2UI 1.0). The renderers live in [kaltura-a2ui-components](https://github.com/kaltura/kaltura-a2ui-components). Live demo: https://kaltura.github.io/kaltura-a2ui-components/.
+**Current catalog: https://kaltura.github.io/a2ui/v4/catalog.json** (A2UI 1.0). The renderers live in [kaltura-a2ui-components](https://github.com/kaltura/kaltura-a2ui-components). Live demo: https://kaltura.github.io/kaltura-a2ui-components/.
 
 | Folder | Catalog id | A2UI protocol | Renderer release |
 |---|---|---|---|
-| `v3/` | `https://kaltura.github.io/a2ui/v3/catalog.json` | 1.0 | [kaltura-a2ui-components 0.7.x and 0.8.x](https://github.com/kaltura/kaltura-a2ui-components/releases/tag/v0.8.0) on `@a2ui/react` and `@a2ui/web_core` 0.15 |
+| `v4/` | `https://kaltura.github.io/a2ui/v4/catalog.json` | 1.0 | [kaltura-a2ui-components 0.9.x](https://github.com/kaltura/kaltura-a2ui-components/releases/tag/v0.9.0) on `@a2ui/react` and `@a2ui/web_core` 0.16.1 or newer 0.16 |
+| `v3/` | `https://kaltura.github.io/a2ui/v3/catalog.json` | 1.0 | [kaltura-a2ui-components 0.7.x and 0.8.x](https://github.com/kaltura/kaltura-a2ui-components/releases/tag/v0.8.0) on `@a2ui/react` and `@a2ui/web_core` 0.15. Frozen. 0.9 serves it only through `buildKalturaCatalog` |
 | `v2/`, `v1/` | Same pattern | 0.9 and older | **Deprecated.** Online and unchanged. No fixes. Do not use them |
 
-## Components (v3)
+`v4` renames the component keys to `@accessibility`, `@metadata`, `@checks` and `@catalogId`. Rules for new ids: [ADR 0012](https://github.com/kaltura/kaltura-a2ui-components/blob/main/docs/adr/0012-catalog-versioning.md).
+
+## Components (v4)
 
 The 18 basic A2UI components, plus:
 
@@ -33,9 +36,9 @@ Props never carry a Kaltura Session (KS). The host app supplies it in code. Prop
 ## Files
 
 ```
-v3/
+v4/
 ├── catalog.json          # Catalog (JSON Schema 2020-12), 18 basic + 12 Kaltura components
-├── common_types.json     # Shared A2UI types, byte copy from @a2ui/web_core 0.15
+├── common_types.json     # Shared A2UI types, byte copy from @a2ui/web_core 0.16
 └── examples/             # 12 message lists: {name, description, messages}
 ```
 
@@ -54,22 +57,22 @@ A runnable example on Google ADK is in [samples/adk-agent](samples/adk-agent/REA
 
 `npm run validate` runs on every pull request and before every deploy:
 
-- v3 passes the A2UI 1.0 catalog meta-schema (`catalog_definition.json`).
+- v3 and v4 pass the A2UI 1.0 catalog meta-schema (`catalog_definition.json`) of the `@a2ui/web_core` they were built for (0.15 and 0.16).
 - `common_types.json` is the file from `@a2ui/web_core`.
 - Every example is a valid list of agent-to-renderer messages for this catalog.
 - Every `catalogId` equals its publish URL.
 
 ## Update the catalog
 
-`v3/catalog.json` is the `kaltura_catalog.json` asset of a kaltura-a2ui-components release. Never edit it by hand.
+`v4/catalog.json` is the `kaltura_catalog.json` asset of a kaltura-a2ui-components release. Never edit it by hand.
 
 ```bash
 gh release download vX.Y.Z --repo kaltura/kaltura-a2ui-components --pattern kaltura_catalog.json --pattern common_types.json --dir /tmp/asset
-cp /tmp/asset/kaltura_catalog.json v3/catalog.json && cp /tmp/asset/common_types.json v3/common_types.json
+cp /tmp/asset/kaltura_catalog.json v4/catalog.json && cp /tmp/asset/common_types.json v4/common_types.json
 npm run validate
 ```
 
-Open a pull request. After the merge, `deploy-pages.yml` publishes to GitHub Pages. Check the served bytes with `curl -fsSL https://kaltura.github.io/a2ui/v3/catalog.json | cmp - /tmp/asset/kaltura_catalog.json`.
+Open a pull request. After the merge, `deploy-pages.yml` publishes to GitHub Pages. Check the served bytes with `curl -fsSL https://kaltura.github.io/a2ui/v4/catalog.json | cmp - /tmp/asset/kaltura_catalog.json`.
 
 ## License
 

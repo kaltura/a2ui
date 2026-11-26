@@ -12,7 +12,7 @@ from fake_llm import FakeLlm, reply_from_example  # noqa: E402
 from server import build_app  # noqa: E402
 import httpx  # noqa: E402
 
-EXAMPLE = REPO_ROOT / "v3/examples/search-form.json"
+EXAMPLE = REPO_ROOT / "v4/examples/search-form.json"
 
 
 def capabilities(*catalog_ids: str) -> dict:
@@ -33,7 +33,7 @@ def test_valid_capabilities_give_validated_messages():
     assert reply.messages[0]["createSurface"]["catalogId"] == CATALOG_ID
 
 
-def test_capabilities_without_the_v3_id_give_plain_text():
+def test_capabilities_without_the_v4_id_give_plain_text():
     model = FakeLlm(a2ui_reply=reply_from_example(EXAMPLE))
     reply = ask(model, capabilities("https://example.com/other-catalog.json"))
     assert (reply.text, reply.messages) == (model.plain_reply, [])
