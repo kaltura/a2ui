@@ -17,10 +17,10 @@ from google.adk.runners import InMemoryRunner
 from google.genai import types
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-CATALOG_ID = "https://kaltura.github.io/a2ui/v3/catalog.json"
+CATALOG_ID = "https://kaltura.github.io/a2ui/v4/catalog.json"
 
 # One folder per catalog id. Each holds catalog.json and examples/*.json.
-CATALOG_FOLDERS = {CATALOG_ID: REPO_ROOT / "v3"}
+CATALOG_FOLDERS = {CATALOG_ID: REPO_ROOT / "v4"}
 
 INSTRUCTION = (
     "You help people find and work with media in their Kaltura library. "
